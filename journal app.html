@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #journalEntries {
+            margin-top: 20px;
+        }
+        .entry {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .remove-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Journal App</h1>
+    <textarea id="journalInput" rows="4" cols="50" placeholder="Write your journal entry..."></textarea><br>
+    <button id="addEntryButton">Add Entry</button>
+
+    <div id="journalEntries"></div>
+
+    <script>
+        const addEntryButton = document.getElementById('addEntryButton');
+        const journalInput = document.getElementById('journalInput');
+        const journalEntries = document.getElementById('journalEntries');
+
+        addEntryButton.addEventListener('click', () => {
+            const entryText = journalInput.value;
+            if (entryText) {
+                const entryDiv = document.createElement('div');
+                entryDiv.classList.add('entry');
+
+                const entryContent = document.createElement('p');
+                entryContent.textContent = entryText;
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.classList.add('remove-button');
+                removeButton.addEventListener('click', () => {
+                    journalEntries.removeChild(entryDiv);
+                });
+
+                entryDiv.appendChild(entryContent);
+                entryDiv.appendChild(removeButton);
+                journalEntries.appendChild(entryDiv);
+
+                journalInput.value = ''; // Clear input field
+            } else {
+                alert('Please write something before adding an entry.');
+            }
+        });
+    </script>
+
+</body>
+</html>
